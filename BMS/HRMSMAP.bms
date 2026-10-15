@@ -1,0 +1,106 @@
+*======================================================================*
+* BMS/HRMSMAP.bms - CICS 3270 Basic Mapping Support Screen Definition  *
+* Project: Enterprise Mainframe HRMS (Employee Management)             *
+* Mapset : HRMSSET                                                     *
+* Map    : HRMSMAP                                                     *
+* Screen : 24 Rows x 80 Columns (Standard 3270 Model 2)                *
+*======================================================================*
+HRMSSET  DFHMSD TYPE=&SYSPARM,                                         X
+               MODE=INOUT,                                             X
+               LANG=COBOL,                                             X
+               STORAGE=AUTO,                                           X
+               CTRL=(FREEKB,FRSET),                                    X
+               EXTATT=YES,                                             X
+               TERM=3270-2,                                            X
+               TIOAPFX=YES
+*----------------------------------------------------------------------*
+* Map Definition                                                       *
+*----------------------------------------------------------------------*
+HRMSMAP  DFHMDI SIZE=(24,80),                                          X
+               LINE=1,                                                 X
+               COLUMN=1
+*
+* Row 01: Screen Header
+         DFHMDF POS=(01,01),ATTRB=(ASKIP,BRT),LENGTH=08,INITIAL='HR01    '
+         DFHMDF POS=(01,23),ATTRB=(ASKIP,BRT),LENGTH=34,               X
+               INITIAL='ENTERPRISE HRMS - EMPLOYEE MASTER'
+         DFHMDF POS=(01,70),ATTRB=(ASKIP,BRT),LENGTH=08,INITIAL='ONLINE  '
+*
+* Row 03: Action Selection Prompt
+         DFHMDF POS=(03,02),ATTRB=(ASKIP,NORM),LENGTH=08,              X
+               INITIAL='ACTION :'
+ACTN     DFHMDF POS=(03,11),ATTRB=(UNPROT,NORM,IC),LENGTH=01
+         DFHMDF POS=(03,13),ATTRB=(ASKIP),LENGTH=01
+         DFHMDF POS=(03,16),ATTRB=(ASKIP,NORM),LENGTH=60,              X
+               INITIAL='(S=SELECT, I=INSERT, U=UPDATE, D=DELETE, C=CL X
+               R, X=EXIT)'
+*
+* Row 05: Primary Key Field (EMP ID)
+         DFHMDF POS=(05,02),ATTRB=(ASKIP,NORM),LENGTH=15,              X
+               INITIAL='EMPLOYEE ID   :'
+EMPID    DFHMDF POS=(05,18),ATTRB=(UNPROT,NORM),LENGTH=05
+         DFHMDF POS=(05,24),ATTRB=(ASKIP),LENGTH=01
+         DFHMDF POS=(05,28),ATTRB=(ASKIP,NORM),LENGTH=28,              X
+               INITIAL='(5 Characters, e.g., E0001)'
+*
+* Row 07: Employee Name
+         DFHMDF POS=(07,02),ATTRB=(ASKIP,NORM),LENGTH=15,              X
+               INITIAL='EMPLOYEE NAME :'
+NAME     DFHMDF POS=(07,18),ATTRB=(UNPROT,NORM),LENGTH=30
+         DFHMDF POS=(07,49),ATTRB=(ASKIP),LENGTH=01
+*
+* Row 09: Department
+         DFHMDF POS=(09,02),ATTRB=(ASKIP,NORM),LENGTH=15,              X
+               INITIAL='DEPARTMENT    :'
+DEPT     DFHMDF POS=(09,18),ATTRB=(UNPROT,NORM),LENGTH=15
+         DFHMDF POS=(09,34),ATTRB=(ASKIP),LENGTH=01
+*
+* Row 11: Designation
+         DFHMDF POS=(11,02),ATTRB=(ASKIP,NORM),LENGTH=15,              X
+               INITIAL='DESIGNATION   :'
+DESIG    DFHMDF POS=(11,18),ATTRB=(UNPROT,NORM),LENGTH=20
+         DFHMDF POS=(11,39),ATTRB=(ASKIP),LENGTH=01
+*
+* Row 13: Salary and Status
+         DFHMDF POS=(13,02),ATTRB=(ASKIP,NORM),LENGTH=15,              X
+               INITIAL='CURRENT SALARY:'
+SALARY   DFHMDF POS=(13,18),ATTRB=(UNPROT,NORM),LENGTH=10
+         DFHMDF POS=(13,29),ATTRB=(ASKIP),LENGTH=01
+         DFHMDF POS=(13,40),ATTRB=(ASKIP,NORM),LENGTH=08,              X
+               INITIAL='STATUS :'
+STATUS   DFHMDF POS=(13,49),ATTRB=(ASKIP,BRT),LENGTH=01
+         DFHMDF POS=(13,51),ATTRB=(ASKIP),LENGTH=01
+         DFHMDF POS=(13,54),ATTRB=(ASKIP,NORM),LENGTH=18,              X
+               INITIAL='(A=ACT, I=IN, T=TRM)'
+*
+* Row 15: Bank Account and Performance Rating
+         DFHMDF POS=(15,02),ATTRB=(ASKIP,NORM),LENGTH=15,              X
+               INITIAL='BANK ACCOUNT  :'
+BANK     DFHMDF POS=(15,18),ATTRB=(UNPROT,NORM),LENGTH=15
+         DFHMDF POS=(15,34),ATTRB=(ASKIP),LENGTH=01
+         DFHMDF POS=(15,40),ATTRB=(ASKIP,NORM),LENGTH=08,              X
+               INITIAL='RATING :'
+RATING   DFHMDF POS=(15,49),ATTRB=(ASKIP,BRT),LENGTH=01
+         DFHMDF POS=(15,51),ATTRB=(ASKIP),LENGTH=01
+         DFHMDF POS=(15,54),ATTRB=(ASKIP,NORM),LENGTH=16,              X
+               INITIAL='(Scale 1 to 5)  '
+*
+* Row 17: Instructions / Help Line
+         DFHMDF POS=(17,02),ATTRB=(ASKIP,NORM),LENGTH=72,              X
+               INITIAL='PF3=EXIT  |  ENTER=PROCESS ACTION  |  TAB=NEXT X
+                FIELD'
+*
+* Row 20: Divider line
+         DFHMDF POS=(20,01),ATTRB=(ASKIP,NORM),LENGTH=79,              X
+               INITIAL='------------------------------------------------X
+               -------------------------------'
+*
+* Row 22: Message Line for System and Error Feedback
+         DFHMDF POS=(22,02),ATTRB=(ASKIP,NORM),LENGTH=09,              X
+               INITIAL='MESSAGE :'
+MSG      DFHMDF POS=(22,12),ATTRB=(ASKIP,BRT),LENGTH=65
+         DFHMDF POS=(22,78),ATTRB=(ASKIP),LENGTH=01
+*
+* End of Map and Mapset Definition
+HRMSMAP  DFHMSD TYPE=FINAL
+         END
